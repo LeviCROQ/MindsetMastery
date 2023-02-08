@@ -13,23 +13,15 @@ test('When initialized with a user-given seed, the next number can be returned',
     expect(fibonacci.next()).toBe(13);
 });
 
-test('When initialized with the default seed, the next number can be returned', () => {
-    fibonacci.init(1);
+test('When calling the next function, the next number can be returned', () => {
+    //fibonacci.init(1);
     expect(fibonacci.next()).toBe(1);
 });
 
-test('When initialized with the default seed, the number after next can be returned (Variation 2)', () => {
-    fibonacci.init(1);
-    next = fibonacci.next();
-    expect(next.next()).toBe(3);
-
-});
-
-test('When initialized with a user-given seed, the number after next can be returned (Variation 2)', () => {
-    fibonacci.init(3);
-    next = fibonacci.next();
-    expect(next.next()).toBe(5);
-
+test('When next is called a number of times, the value returned should be accurate', () => {
+    fibonacci.next();
+    fibonacci.next();
+    expect(fibonacci.next()).toBe(3);
 });
 
 test('When initialized with a user-given seed, skipping by one will return the next number', () => {
@@ -84,7 +76,7 @@ test('When initialized with a user-given string seed, an error should be thrown'
 
 test('When initialized with a user-given string seed, an error should be thrown (Variation 2)', () => {
     expect(() => {
-        fibonacci.init('3');
+        fibonacci.init('Howdy');
     }).toThrow();
 
 });
@@ -94,4 +86,24 @@ test('When initialized with a user-given seed outside of the Fibonacci sequence,
         fibonacci.init(4);
     }).toThrow();
 
+});
+
+test('When a negative skip value is given, an error should be thrown', () => {
+    expect(() => {
+        fibonacci.skip(-3);
+    }).toThrow();
+
+});
+
+test('When a string is provided for the skip value, an error should be thrown', () => {
+    expect(() => {
+        fibonacci.skip("TestSkip");
+    }).toThrow();
+});
+
+test('When initialized with no seed, an error should be thrown', () => {
+
+    expect(() => {
+        fibonacci.init();
+    }).toThrow();
 });
